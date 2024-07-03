@@ -70,7 +70,11 @@ read_input_file "$input_file"
 for ((i = 0; i < ${#users[@]}; i++)); do
   username="${users[i]}"
   user_groups="${group_list[i]}"
-  
+
+  if [[ "$username" == "" ]]; then
+    continue  # Skip empty usernames
+  fi
+
   create_user_with_group "$username"
   set_user_password "$username"
   add_user_to_groups "$username" "$user_groups"
